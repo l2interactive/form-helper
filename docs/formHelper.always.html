@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Namespace: always</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Namespace: always</h1>
+
+    
+
+
+
+
+<section>
+
+<header>
+    
+        <h2>
+            <span class="ancestors"><a href="formHelper.html">formHelper</a>.</span>always</h2>
+        
+    
+</header>
+
+<article>
+    <div class="container-overview">
+    
+        
+            <div class="description"><p>A place to declare site-wide XHR callbacks and StatusHandlers. These
+callbacks, if present, are invoked immediately after (and independant of) a
+FormRule's local counterpart.</p>
+<p>Note that even though these are registered
+'globally', they are still executed within the context of the working
+FormHelperRequest.</p></div>
+        
+
+        
+
+
+    <h5 class="subsection-title">Properties:</h5>
+
+    
+
+<table class="props">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+        <th>Attributes</th>
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>xhrReady</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><a href="FormRule.html#.xhrReady">FormRule.xhrReady</a></span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last"></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>xhrBeforeSend</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><a href="FormRule.html#.xhrBeforeSend">FormRule.xhrBeforeSend</a></span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last"></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>xhrSuccess</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><a href="FormRule.html#.xhrSuccess">FormRule.xhrSuccess</a></span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last"></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>xhrError</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><a href="FormRule.html#.xhrError">FormRule.xhrError</a></span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last"></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>xhrComplete</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><a href="FormRule.html#.xhrComplete">FormRule.xhrComplete</a></span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last"></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>onComplete</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">FormRule.onComplete</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last"></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>status</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Object.&lt;String, <a href="FormRule.html#.StatusHandler">FormRule.StatusHandler</a>></span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last"></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="formhelper.js.html">formhelper.js</a>, <a href="formhelper.js.html#line1078">line 1078</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+        
+            <h3>Examples</h3>
+            
+    <pre class="prettyprint"><code>formHelper.always.xhrSuccess = function() {
+  if (this.status !== 'SUCCESS') {
+    // A form submission was not successful!
+    // Track an event perhaps?
+  }
+};</code></pre>
+
+    <pre class="prettyprint"><code>formHelper.always = {
+  xhrError: function() {
+    // XHR error - what to do?
+  },
+  status: {
+    WEBSITE_BROKEN: '/' // Redirect home
+  }
+};</code></pre>
+
+        
+    
+    </div>
+
+    
+
+    
+
+    
+
+     
+
+    
+
+    
+
+    
+
+    
+
+    
+</article>
+
+</section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="formHelper.FormHelperRequest.html">FormHelperRequest</a></li><li><a href="formHelper.FormHelperRequestController.html">FormHelperRequestController</a></li></ul><h3>Namespaces</h3><ul><li><a href="formHelper.html">formHelper</a></li><li><a href="formHelper.always.html">always</a></li><li><a href="formHelper.Classes.html">Classes</a></li><li><a href="formHelper.ErrorCodes.html">ErrorCodes</a></li><li><a href="formHelper.FormHelperRequest.Defaults.html">Defaults</a></li><li><a href="formHelper.FormHelperRequest.Defaults.rule.html">rule</a></li><li><a href="formHelper.FormHelperRequest.Defaults.xhrOptions.html">xhrOptions</a></li><li><a href="FormHelperResponse.html">FormHelperResponse</a></li><li><a href="FormRule.html">FormRule</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.5.0-dev</a>
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

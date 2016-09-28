@@ -1,0 +1,1732 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Namespace: FormRule</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Namespace: FormRule</h1>
+
+    
+
+
+
+
+<section>
+
+<header>
+    
+        <h2>FormRule</h2>
+        
+    
+</header>
+
+<article>
+    <div class="container-overview">
+    
+        
+            <div class="description">Object used to define actions FormHelper will take upon form submission and
+XHR lifecycle</div>
+        
+
+        
+
+
+    <h5 class="subsection-title">Properties:</h5>
+
+    
+
+<table class="props">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+        <th>Attributes</th>
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>form</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last">Form CSS selector string</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>action</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last">Where to post the XHR request. If ommitted,
+will use the form's 'action' attribute value</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>xhrOptions</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Object</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last">Custom XHR options to use. See <a href="http://api.jquery.com/jQuery.ajax/#jQuery-ajax-settings">jQuery documentation</a>
+for full list of options</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>data</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Object</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last">Additional post data. Useful for defaults or
+'always args'<br><br>
+
+Note the order order in which data is merged (later items take
+precedence):
+<ol>
+  <li>formHelper.FormHelperRequest.Defaults.xhrOptions.data
+  <li>rule.xhrOptions.data
+  <li>rule.data
+  <li>serialized form data
+</ol></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>isMultiForm</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Boolean</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last">Modify $form
+to be the set of all matched FormRule.form elements as opposed to the
+single submitted form, i.e. treat multiple forms as one single big form</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>disableControls</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Boolean</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last">Automatically disable form controls
+during submit</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>scrollIntoViewOnUIUpdate</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Boolean</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last">Automatically scroll the form
+into view (if it isn't already) if response caused us to modify the DOM</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>focusFirstErroredControl</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Boolean</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last">Automatically focuses
+the first errored control</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>blankAllPasswordsOnSubmit</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Boolean</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last">Automatically call
+<a href="formHelper.FormHelperRequest.html#blankAllPasswordFields">blankAllPasswordFields</a> on submit</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>releaseFormAndUpdateUIOnXHRSuccess</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Boolean</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last">Automatically call
+<a href="formHelper.FormHelperRequestController.html#releaseForm">releaseForm</a> and
+<a href="formHelper.FormHelperRequestController.html#updateUI">updateUI</a> after
+<a href="formHelper.FormHelperRequestController.html#xhrSuccess">xhrSuccess</a></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>xhrReady</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><a href="FormRule.html#.xhrReady">FormRule.xhrReady</a></span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last">Callback fired when xhrOptions
+has been created but before the actual jqXHR has been created. <b>The most
+relevant non-StatusHandler callback</b></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>xhrBeforeSend</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><a href="FormRule.html#.xhrBeforeSend">FormRule.xhrBeforeSend</a></span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last">Callback fired during
+the jqXHR beforeSend event:
+<blockquote>
+<b><a href="http://api.jquery.com/Ajax_Events/">beforeSend</a></b><br>
+This event, which is triggered before an Ajax request is started, allows you
+to modify the XMLHttpRequest object (setting additional headers, if need be.)
+</blockquote></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>xhrSuccess</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><a href="FormRule.html#.xhrSuccess">FormRule.xhrSuccess</a></span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last">Callback fired during the
+jqXHR success event:
+<blockquote>
+<b><a href="http://api.jquery.com/Ajax_Events/">success</a></b><br>
+This event is only called if the request was successful (no errors from the
+server, no errors with the data).
+</blockquote></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>xhrComplete</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><a href="FormRule.html#.xhrComplete">FormRule.xhrComplete</a></span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last">Callback fired during the
+jqXHR complete event:
+<blockquote>
+<b><a href="http://api.jquery.com/Ajax_Events/">complete</a></b><br>
+This event is called regardless of if the request was successful, or not. You
+will always receive a complete callback, even for synchronous requests.
+</blockquote></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>xhrError</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><a href="FormRule.html#.xhrError">FormRule.xhrError</a></span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last">Callback fired during the jqXHR
+error event:
+<blockquote>
+<b><a href="http://api.jquery.com/Ajax_Events/">error</a></b><br>
+This event is only called if an error occurred with the request (you can
+never have both an error and a success callback with a request).
+</blockquote></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>requestController</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">function</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last">Class to instantiate to handle
+FormRule execution. Defaults to <a href="formHelper.FormHelperRequest.html">FormHelperRequest</a></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>customSubmitHandler</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">function</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last">Prevents FormHelper from creating
+a <a href="formHelper.FormHelperRequest.html">FormHelperRequest</a> on submit and calls
+this function instead.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>onComplete</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">function</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last">Callback fired after when FormHelperRequest
+is complete.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>status</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Object.&lt;String, <a href="FormRule.html#.StatusHandler">FormRule.StatusHandler</a>></span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last">Object with keys matching <a href="FormHelperResponse.html">FormHelperResponse</a> status codes and their
+accompanying StatusHandlers. Only the StatusHandler registered for the
+returned status code will be invoked</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="formhelper.js.html">formhelper.js</a>, <a href="formhelper.js.html#line1">line 1</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+        
+            <h3>Examples</h3>
+            
+    <pre class="prettyprint"><code>{
+  form: '#form-login',
+  action: '/h/module/loginForm',
+
+  xhrOptions: {
+    type: 'POST', // Default value
+    data: {
+      foo: 'bar'
+    }
+  },
+
+  data: {
+    foo: 'bar',
+    baz: 'qux'
+  },
+
+  xhrReady: function(xhrOptions) {
+    // Everything is prepared, about to create jqXHR
+  },
+  xhrBeforeSend: function(jqXHR, settings) {
+    // jqXHR instantiated, about to make the request
+  },
+  xhrSuccess: function(data, textStatus, jqXHR) {
+    // Response received, all good.
+  },
+  xhrError: function(jqXHR, textStatus, errorThrown) {
+    // Something went wrong...
+  },
+  xhrComplete: function(jqXHR, textStatus) {
+    // jqXHR complete
+  },
+
+  status: {
+    SUCCESS: '/account', // Login successful, redirect user
+    ERROR: function() {
+      // Fired on a response status code of 'error'
+      this.find('#fancy-error-message').show();
+    }
+  }
+}</code></pre>
+
+    <pre class="prettyprint"><code>{
+  form: '#form-sign-up',
+  action: '/h/module/signup',
+
+  xhrReady: function(xhrOptions) {
+   if (xhrOptions.data.accepts !== '1') {
+     this.cancel();
+     this.find('#message-accept-terms').show();
+   }
+  },
+
+  status: {
+    SUCCESS: function() {
+      this.$form.html(this.data);
+    }
+  }
+}</code></pre>
+
+        
+    
+    </div>
+
+    
+
+    
+
+    
+
+     
+
+    
+
+    
+
+    
+
+    
+        <h3 class="subsection-title">Type Definitions</h3>
+
+        
+                
+<h4 class="name" id=".StatusHandler">StatusHandler</h4>
+
+
+
+
+<div class="description">
+    Handler for a given <a href="FormHelperResponse.html">FormHelperResponse</a> status. Can either be a
+function or a string. If it's a function, it will be called in the context of
+the <a href="formHelper.FormHelperRequest.html">FormHelperRequest</a> instance. If it's
+a string, the browser will be forwarded to the given URL/path.
+</div>
+
+
+
+    <h5>Type:</h5>
+    <ul>
+        <li>
+            
+<span class="param-type">fn</span>
+|
+
+<span class="param-type">String</span>
+
+
+        </li>
+    </ul>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="formhelper.js.html">formhelper.js</a>, <a href="formhelper.js.html#line162">line 162</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+    <h5>Examples</h5>
+    
+    <pre class="prettyprint"><code>// Update UI appropriately for this status code
+function() {
+  this.find("#update-success").show();
+  this.scrollToTopOfForm();
+}</code></pre>
+
+    <pre class="prettyprint"><code>// Forward the browser to '/account/main'
+'/account/main'</code></pre>
+
+
+
+            
+                
+
+    
+
+    <h4 class="name" id=".xhrBeforeSend"><span class="type-signature"></span>xhrBeforeSend<span class="signature">(jqXHR, settings)</span><span class="type-signature"></span></h4>
+
+    
+
+
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>jqXHR</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">jqXHR</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">Prepared <a href="http://api.jquery.com/jQuery.ajax/#jqXHR">jQuery XMLHttpRequest object</a></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>settings</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">object</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">jqXHR settings object</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="formhelper.js.html">formhelper.js</a>, <a href="formhelper.js.html#line187">line 187</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+            
+                
+
+    
+
+    <h4 class="name" id=".xhrComplete"><span class="type-signature"></span>xhrComplete<span class="signature">(jqXHR, textStatus)</span><span class="type-signature"></span></h4>
+
+    
+
+
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>jqXHR</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">jqXHR</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><a href="http://api.jquery.com/jQuery.ajax/#jqXHR">jQuery XMLHttpRequest object</a></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>textStatus</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">jQuery request status</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="formhelper.js.html">formhelper.js</a>, <a href="formhelper.js.html#line194">line 194</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+            
+                
+
+    
+
+    <h4 class="name" id=".xhrError"><span class="type-signature"></span>xhrError<span class="signature">(jqXHR, textStatus, errorThrown)</span><span class="type-signature"></span></h4>
+
+    
+
+
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>jqXHR</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">jqXHR</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><a href="http://api.jquery.com/jQuery.ajax/#jqXHR">jQuery XMLHttpRequest object</a></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>textStatus</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">jQuery request status</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>errorThrown</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">HTTP status – 'Not Found', 'Internal Server
+Error', etc.</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="formhelper.js.html">formhelper.js</a>, <a href="formhelper.js.html#line209">line 209</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+            
+                
+
+    
+
+    <h4 class="name" id=".xhrReady"><span class="type-signature"></span>xhrReady<span class="signature">(xhrOptions)</span><span class="type-signature"></span></h4>
+
+    
+
+
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>xhrOptions</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Object</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">Complete XHR options object</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="formhelper.js.html">formhelper.js</a>, <a href="formhelper.js.html#line181">line 181</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+            
+                
+
+    
+
+    <h4 class="name" id=".xhrSuccess"><span class="type-signature"></span>xhrSuccess<span class="signature">(data, textStatus, jqXHR)</span><span class="type-signature"></span></h4>
+
+    
+
+
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>data</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">object</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">Response payload</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>textStatus</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">jQuery request status</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>jqXHR</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">jqXHR</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><a href="http://api.jquery.com/jQuery.ajax/#jqXHR">jQuery XMLHttpRequest object</a></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="formhelper.js.html">formhelper.js</a>, <a href="formhelper.js.html#line201">line 201</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+            
+    
+
+    
+</article>
+
+</section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="formHelper.FormHelperRequest.html">FormHelperRequest</a></li><li><a href="formHelper.FormHelperRequestController.html">FormHelperRequestController</a></li></ul><h3>Namespaces</h3><ul><li><a href="formHelper.html">formHelper</a></li><li><a href="formHelper.always.html">always</a></li><li><a href="formHelper.Classes.html">Classes</a></li><li><a href="formHelper.ErrorCodes.html">ErrorCodes</a></li><li><a href="formHelper.FormHelperRequest.Defaults.html">Defaults</a></li><li><a href="formHelper.FormHelperRequest.Defaults.rule.html">rule</a></li><li><a href="formHelper.FormHelperRequest.Defaults.xhrOptions.html">xhrOptions</a></li><li><a href="FormHelperResponse.html">FormHelperResponse</a></li><li><a href="FormRule.html">FormRule</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.5.0-dev</a>
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

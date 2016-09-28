@@ -1,0 +1,29 @@
+{
+  "name": "form-helper",
+  "version": "1.0.0",
+  "description": "Register forms for ajax submission. Auto display messages, highlight inputs, and fire callbacks based on the response.",
+  "main": "src/formhelper.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/l2interactive/form-helper.git"
+  },
+  "keywords": [
+    "forms",
+    "html",
+    "ajax",
+    "json"
+  ],
+  "author": "L2 Interactive",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/l2interactive/form-helper/issues"
+  },
+  "homepage": "https://github.com/l2interactive/form-helper#readme",
+  "dependencies": {
+    "jquery": ">1.11.1",
+    "jquery-serializejson": "^2.7.2"
+  }
+}

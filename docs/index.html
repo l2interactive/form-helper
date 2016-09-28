@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Home</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Home</h1>
+
+    
+
+
+
+    
+
+
+    <h3> </h3>
+
+
+
+
+
+
+
+
+
+
+    
+
+
+
+
+    <section>
+        <article><style type="text/css">
+  code {
+    background-color: linen;
+  }
+  h3 {
+    margin-top: 30px;
+  }
+</style>
+
+<h2>Form Helper</h2>
+
+<p>Take the following form:</p>
+<pre class="prettyprint source lang-html"><code>&lt;form action=&quot;/h/cart/Login&quot; id=&quot;form-login&quot; method=&quot;post&quot;>
+  &lt;fieldset>
+    &lt;legend class=&quot;form-legend&quot;>Log in&lt;/legend>
+
+    &lt;div class=&quot;js-fh-status-failure&quot;        style=&quot;display: none;&quot;>Sorry, an error occurred.&lt;/div>
+    &lt;div class=&quot;js-fh-error-empty-inputs&quot;    style=&quot;display: none;&quot;>One or more fields were left blank.&lt;/div>
+    &lt;div class=&quot;js-fh-error-bad-credentials&quot; style=&quot;display: none;&quot;>The username and/or password you entered did not match our records.&lt;/div>
+
+    &lt;fieldset class=&quot;fieldset-credentials&quot;>
+      &lt;legend>Log in Credentials&lt;/legend>
+
+      &lt;div class=&quot;form-group&quot;>
+        &lt;label class=&quot;control-label&quot; for=&quot;email&quot;>Email Address&lt;/label>
+        &lt;input type=&quot;email&quot; class=&quot;form-control&quot; id=&quot;email&quot; name=&quot;email&quot;>
+      &lt;/div>
+
+      &lt;div class=&quot;form-group&quot;>
+        &lt;label class=&quot;control-label&quot; for=&quot;password&quot;>Password&lt;/label>
+        &lt;input type=&quot;password&quot; class=&quot;form-control&quot; id=&quot;password&quot; name=&quot;password&quot;>
+      &lt;/div>
+
+    &lt;/fieldset>
+
+    &lt;button type=&quot;submit&quot;>Log in&lt;/button>
+
+  &lt;/fieldset>
+&lt;/form></code></pre><p>Register a <a href="FormRule.html">FormRule</a>:</p>
+<pre class="prettyprint source lang-javascript"><code>formHelper.addRule({
+  form: '#form-login',
+  status: {
+    SUCCESS: function() {
+      // Replace the form with returned HTML
+      this.$form.html(this.data);
+    }
+  }
+});</code></pre><p>When the form above submits, FormHelper will match it up to the registered
+FormRule and take over. The form will not post to the action as normal, but FormHelper
+will take over by creating a new <a href="formHelper.FormHelperRequest.html">FormHelperRequest</a>
+and make an XHR POST containing the serialized form input values. Server validates
+and returns an appropriate JSON <a href="FormHelperResponse.html">FormHelperResponse</a> for the
+FormHelperRequest to respond to.</p>
+<p>If the user were to submit this form with a bad email address or password, we
+would receive the following response, with which FormHelper would automatically
+attempt to:</p>
+<ol>
+<li>Given the status code <code>FAILURE</code>:<ul>
+<li>Make visible <code>.js-fh-status-failure</code></li>
+</ul>
+</li>
+<li>Given the error code <code>bad-credentials</code>:<ul>
+<li>Make visible <code>.js-fh-error-bad-credentials</code></li>
+</ul>
+</li>
+<li>Given the error params <code>email</code> and <code>password</code>:<ul>
+<li>Make visible <code>.js-fh-param-error-email</code> and <code>.js-fh-param-error-password</code>
+<em>not used in our example</em></li>
+<li>Add the class <code>has-error</code> to the control groups (i.e. the input's
+nearest containing <code>.form-group</code>) of the inputs <code>email</code>
+and <code>password</code></li>
+</ul>
+</li>
+<li>Given there was at least one error:<ul>
+<li>Make visible <code>.js-fh-error-any-error</code> <em>not used in our example</em></li>
+</ul>
+</li>
+<li>Attempt to execute a <a href="FormRule.html#.StatusHandler">FormRule.StatusHandler</a> keyed to <code>FAILURE</code>
+<em>not used in our example</em></li>
+</ol>
+<pre class="prettyprint source lang-json"><code>{
+  &quot;status&quot;: &quot;FAILURE&quot;,
+  &quot;errors&quot;: [
+    {
+      &quot;code&quot;: &quot;bad-credentials&quot;,
+      &quot;params&quot;: [
+        &quot;email&quot;, &quot;password&quot;
+      ]
+    }
+  ]
+}</code></pre><p>Nice - a lot of stuff happened for free. If the user re-enters their email and
+password and re-submits with proper credentails, FormHelper will undo any
+changes from the last submission and we'd get the following FormHelperResponse.</p>
+<p>This time, FormHelper will attempt to:</p>
+<ol>
+<li>Given the status code <code>SUCCESS</code>:<ul>
+<li>Make visible <code>.js-fh-status-success</code> <em>not used in our example</em></li>
+</ul>
+</li>
+<li>Attempt to execute a StatusHandler keyed to <code>SUCCESS</code></li>
+</ol>
+<pre class="prettyprint source lang-json"><code>{
+  &quot;status&quot;: &quot;SUCCESS&quot;,
+  &quot;data&quot;: &quot;&lt;div class=\&quot;message-login-successful\&quot;>&lt;h2>Login Successful!&lt;/h2> ... &lt;/div>&quot;
+}</code></pre><p>Since we defined a <code>SUCCESS</code> StatusHandler, it gets invoked. In
+our case, we replaced the form with HTML returned by the server, but what a
+StatusHandler does is completely up to you.</p>
+<h3>XHR Callback and StatusHandler Execution Order</h3><p><strong>All</strong> of the following callbacks are first executed locally (i.e. callbacks
+declared in a specific <a href="FormRule.html">FormRule</a>) then <a href="formHelper.always.html">globally</a>.
+All callbacks are optional.</p>
+<ol>
+<li>xhrReady <em>– cancellable</em></li>
+<li>xhrBeforeSend <em>– cancellable</em></li>
+<li>Either:<ul>
+<li>xhrSuccess</li>
+<li>xhrError</li>
+</ul>
+</li>
+<li>Matching <a href="FormRule.html#.StatusHandler">StatusHandler</a></li>
+<li>xhrComplete</li>
+<li>onComplete</li>
+</ol>
+<h6>Generate these docs:</h6><p>Install jsdoc globally then from the project root:</p>
+<pre class="prettyprint source"><code>jsdoc src/formhelper.js docs/README.md -p -d docs/ -c docs/conf.json</code></pre></article>
+    </section>
+
+
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="formHelper.FormHelperRequest.html">FormHelperRequest</a></li><li><a href="formHelper.FormHelperRequestController.html">FormHelperRequestController</a></li></ul><h3>Namespaces</h3><ul><li><a href="formHelper.html">formHelper</a></li><li><a href="formHelper.always.html">always</a></li><li><a href="formHelper.Classes.html">Classes</a></li><li><a href="formHelper.ErrorCodes.html">ErrorCodes</a></li><li><a href="formHelper.FormHelperRequest.Defaults.html">Defaults</a></li><li><a href="formHelper.FormHelperRequest.Defaults.rule.html">rule</a></li><li><a href="formHelper.FormHelperRequest.Defaults.xhrOptions.html">xhrOptions</a></li><li><a href="FormHelperResponse.html">FormHelperResponse</a></li><li><a href="FormRule.html">FormRule</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.5.0-dev</a>
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>
