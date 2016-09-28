@@ -8,7 +8,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/l2interactive/form-helper.git"
+    "url": "git+https://github.com/l2interactive/formhelper.git"
   },
   "keywords": [
     "forms",
@@ -19,9 +19,9 @@
   "author": "L2 Interactive",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/l2interactive/form-helper/issues"
+    "url": "https://github.com/l2interactive/formhelper/issues"
   },
-  "homepage": "https://github.com/l2interactive/form-helper#readme",
+  "homepage": "https://github.com/l2interactive/formhelper#readme",
   "dependencies": {
     "jquery": ">1.11.1",
     "jquery-serializejson": "^2.7.2"
