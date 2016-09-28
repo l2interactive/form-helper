@@ -1,5 +1,5 @@
 {
-  "name": "form-helper",
+  "name": "formhelper",
   "version": "1.0.0",
   "description": "Register forms for ajax submission. Auto display messages, highlight inputs, and fire callbacks based on the response.",
   "main": "src/formhelper.js",
