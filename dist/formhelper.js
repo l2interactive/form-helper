@@ -1,3 +1,128 @@
+(function (global, factory) {
+  typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory(require('jquery'), require('jquery-serializejson')) :
+  typeof define === 'function' && define.amd ? define(['jquery', 'jquery-serializejson'], factory) :
+  (global.formHelper = factory(global.jQuery,global.serializeJSON));
+}(this, (function (jquery,jquerySerializejson) { 'use strict';
+
+var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) {
+  return typeof obj;
+} : function (obj) {
+  return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj;
+};
+
+var asyncGenerator = function () {
+  function AwaitValue(value) {
+    this.value = value;
+  }
+
+  function AsyncGenerator(gen) {
+    var front, back;
+
+    function send(key, arg) {
+      return new Promise(function (resolve, reject) {
+        var request = {
+          key: key,
+          arg: arg,
+          resolve: resolve,
+          reject: reject,
+          next: null
+        };
+
+        if (back) {
+          back = back.next = request;
+        } else {
+          front = back = request;
+          resume(key, arg);
+        }
+      });
+    }
+
+    function resume(key, arg) {
+      try {
+        var result = gen[key](arg);
+        var value = result.value;
+
+        if (value instanceof AwaitValue) {
+          Promise.resolve(value.value).then(function (arg) {
+            resume("next", arg);
+          }, function (arg) {
+            resume("throw", arg);
+          });
+        } else {
+          settle(result.done ? "return" : "normal", result.value);
+        }
+      } catch (err) {
+        settle("throw", err);
+      }
+    }
+
+    function settle(type, value) {
+      switch (type) {
+        case "return":
+          front.resolve({
+            value: value,
+            done: true
+          });
+          break;
+
+        case "throw":
+          front.reject(value);
+          break;
+
+        default:
+          front.resolve({
+            value: value,
+            done: false
+          });
+          break;
+      }
+
+      front = front.next;
+
+      if (front) {
+        resume(front.key, front.arg);
+      } else {
+        back = null;
+      }
+    }
+
+    this._invoke = send;
+
+    if (typeof gen.return !== "function") {
+      this.return = undefined;
+    }
+  }
+
+  if (typeof Symbol === "function" && Symbol.asyncIterator) {
+    AsyncGenerator.prototype[Symbol.asyncIterator] = function () {
+      return this;
+    };
+  }
+
+  AsyncGenerator.prototype.next = function (arg) {
+    return this._invoke("next", arg);
+  };
+
+  AsyncGenerator.prototype.throw = function (arg) {
+    return this._invoke("throw", arg);
+  };
+
+  AsyncGenerator.prototype.return = function (arg) {
+    return this._invoke("return", arg);
+  };
+
+  return {
+    wrap: function (fn) {
+      return function () {
+        return new AsyncGenerator(fn.apply(this, arguments));
+      };
+    },
+    await: function (value) {
+      return new AwaitValue(value);
+    }
+  };
+}();
+
 /**
  * Object used to define actions FormHelper will take upon form submission and
  * XHR lifecycle
@@ -215,7 +340,6 @@
  * Error', etc.
  */
 
-
 /**
  * This describes the expected format of a FormHelperRequest JSON response
  *
@@ -291,19 +415,16 @@
 * @namespace formHelper
 */
 
-import 'jquery';
-import 'jquery-serializejson';
-
-const $ = jQuery;
-const formHelper = {};
-const rules = [];
+var $ = jQuery;
+var formHelper = {};
+var rules = [];
 
 /**
  * API method for registering a FormRule. The associated form element not need
  * to exist in the DOM at this point
  * @param {FormRule} formRule [FormRule]{@link formHelper.FormRule} object
  */
-formHelper.addRule = function(formRule) {
+formHelper.addRule = function (formRule) {
   rules.push(formRule);
 };
 
@@ -322,7 +443,7 @@ function onFormSubmit(event) {
   var $form = $(this);
 
   // Check if this form matches any of our rules
-  $(rules).each(function(index, rule) {
+  $(rules).each(function (index, rule) {
     if (!matchedRule) {
       if ($form.is(rule.form)) {
         matchedRule = rule;
@@ -336,7 +457,7 @@ function onFormSubmit(event) {
 
     // If there is an alternate onFormSubmit behaviour specified
     // in the rule, do that instead
-    if(matchedRule.customSubmitHandler){
+    if (matchedRule.customSubmitHandler) {
       matchedRule.customSubmitHandler();
       return;
     }
@@ -347,15 +468,12 @@ function onFormSubmit(event) {
 
     var RequestController = matchedRule.requestController || formHelper.FormHelperRequest;
     new RequestController($form, matchedRule, event);
-
   }
 }
 
-$(function() {
+$(function () {
   $(document).on('submit', 'form', onFormSubmit);
 });
-
-
 
 /**
  * FormHelperRequestController's methods get mixed in to FormHelperRequest.
@@ -367,10 +485,12 @@ $(function() {
  * @memberOf formHelper
  * @private
  */
-function FormHelperRequestController() { throw new Error('FormHelperRequestController should not be instantiated'); }
-$.extend(FormHelperRequestController.prototype, /** @lends formHelper.FormHelperRequestController.prototype */ {
+function FormHelperRequestController() {
+  throw new Error('FormHelperRequestController should not be instantiated');
+}
+$.extend(FormHelperRequestController.prototype, /** @lends formHelper.FormHelperRequestController.prototype */{
 
-  startXHR: function() {
+  startXHR: function startXHR() {
     if (this.cancelled) return;
 
     if (this.rule.blankAllPasswordsOnSubmit) {
@@ -389,7 +509,7 @@ $.extend(FormHelperRequestController.prototype, /** @lends formHelper.FormHelper
    * @param  {jqXHR} jqXHR - Prepared [jQuery XMLHttpRequest object]{@link http://api.jquery.com/jQuery.ajax/#jqXHR}
    * @param  {object} settings - jqXHR settings object
    */
-  xhrBeforeSend: function(jqXHR, settings) {
+  xhrBeforeSend: function xhrBeforeSend(jqXHR, settings) {
 
     var cancelledViaReturnFalse = this.invokeStatusHandler(this.rule.xhrBeforeSend, [jqXHR, settings]) === false;
 
@@ -418,13 +538,13 @@ $.extend(FormHelperRequestController.prototype, /** @lends formHelper.FormHelper
    * @param  {String} textStatus jQuery request status
    * @param  {jqXHR} jqXHR - [jQuery XMLHttpRequest object]{@link http://api.jquery.com/jQuery.ajax/#jqXHR}
    */
-  xhrSuccess: function(data, textStatus, jqXHR) {
+  xhrSuccess: function xhrSuccess(data, textStatus, jqXHR) {
 
     this.status = data.status;
-    this.data   = data.data;
+    this.data = data.data;
     this.errors = data.errors;
 
-    this.invokeStatusHandler(this.rule.xhrSuccess,         [data, textStatus, jqXHR]);
+    this.invokeStatusHandler(this.rule.xhrSuccess, [data, textStatus, jqXHR]);
     this.invokeStatusHandler(formHelper.always.xhrSuccess, [data, textStatus, jqXHR]);
 
     if (this.status) {
@@ -445,20 +565,18 @@ $.extend(FormHelperRequestController.prototype, /** @lends formHelper.FormHelper
 
     this.invokeStatusHandler(this.rule.onComplete);
     this.invokeStatusHandler(formHelper.always.onComplete);
-
   },
 
   /**
    * [Releases form]{@link formHelper.FormHelperRequestController#releaseForm}
    * and invoke [xhrError StatusHandler]{@link FormRule.StatusHandler}
-
-   * @param  {jqXHR} jqXHR - [jQuery XMLHttpRequest object]{@link http://api.jquery.com/jQuery.ajax/#jqXHR}
+    * @param  {jqXHR} jqXHR - [jQuery XMLHttpRequest object]{@link http://api.jquery.com/jQuery.ajax/#jqXHR}
    * @param  {String} textStatus jQuery request status
    * @param  {String} errorThrown HTTP status – 'Not Found', 'Internal Server Error', etc.
    */
-  xhrError: function(jqXHR, textStatus, errorThrown) {
+  xhrError: function xhrError(jqXHR, textStatus, errorThrown) {
     this.releaseForm();
-    this.invokeStatusHandler(this.rule.xhrError,         [jqXHR, textStatus, errorThrown]);
+    this.invokeStatusHandler(this.rule.xhrError, [jqXHR, textStatus, errorThrown]);
     this.invokeStatusHandler(formHelper.always.xhrError, [jqXHR, textStatus, errorThrown]);
   },
 
@@ -468,8 +586,8 @@ $.extend(FormHelperRequestController.prototype, /** @lends formHelper.FormHelper
    * @param  {jqXHR} jqXHR - [jQuery XMLHttpRequest object]{@link http://api.jquery.com/jQuery.ajax/#jqXHR}
    * @param  {String} textStatus jQuery request status
    */
-  xhrComplete: function(jqXHR, textStatus) {
-    this.invokeStatusHandler(this.rule.xhrComplete,         [jqXHR, textStatus]);
+  xhrComplete: function xhrComplete(jqXHR, textStatus) {
+    this.invokeStatusHandler(this.rule.xhrComplete, [jqXHR, textStatus]);
     this.invokeStatusHandler(formHelper.always.xhrComplete, [jqXHR, textStatus]);
   },
 
@@ -479,11 +597,11 @@ $.extend(FormHelperRequestController.prototype, /** @lends formHelper.FormHelper
    * @param  {FormRule.StatusHandler} [statusHandler] StatusHandler to invoke
    * @param  {array} [args] The callback's arguments
    */
-  invokeStatusHandler: function(statusHandler, args) {
+  invokeStatusHandler: function invokeStatusHandler(statusHandler, args) {
     if (this.cancelled) return;
 
     if (statusHandler) {
-      switch (typeof statusHandler) {
+      switch (typeof statusHandler === 'undefined' ? 'undefined' : _typeof(statusHandler)) {
         case 'string':
           this.redirect(statusHandler);
           break;
@@ -495,14 +613,13 @@ $.extend(FormHelperRequestController.prototype, /** @lends formHelper.FormHelper
     }
   },
 
-
   /**
    * Marks the form element as being 'checked out' by applying
    * [FH_FORM_SUBMITTING]{@link formHelper.Classes.FH_FORM_SUBMITTING} class.
    * A checked out form will cancel any additional FormHelperRequests on the
    * form until [released]{@link formHelper.FormHelperRequestController#releaseForm}
    */
-  checkoutForm: function() {
+  checkoutForm: function checkoutForm() {
     this.$form.addClass(formHelper.Classes.FH_FORM_SUBMITTING);
   },
 
@@ -510,7 +627,7 @@ $.extend(FormHelperRequestController.prototype, /** @lends formHelper.FormHelper
    * Removes [FH_FORM_SUBMITTING]{@link formHelper.Classes.FH_FORM_SUBMITTING}
    * class from the form and [enables controls]{@link formHelper.FormHelperRequestController#enableControls}
    */
-  releaseForm: function() {
+  releaseForm: function releaseForm() {
     this.enableControls();
     this.$form.removeClass(formHelper.Classes.FH_FORM_SUBMITTING);
   },
@@ -521,7 +638,7 @@ $.extend(FormHelperRequestController.prototype, /** @lends formHelper.FormHelper
    * class on the form element
    * @return {Boolean}
    */
-  isFormCheckedOut: function() {
+  isFormCheckedOut: function isFormCheckedOut() {
     return this.$form.hasClass(formHelper.Classes.FH_FORM_SUBMITTING);
   },
 
@@ -533,11 +650,11 @@ $.extend(FormHelperRequestController.prototype, /** @lends formHelper.FormHelper
    * Uses the return values to determine if any UI has been updated, and if
    * so, scrolls the form into view
    */
-  updateUI: function() {
+  updateUI: function updateUI() {
 
-    var errors  = this.errors;
+    var errors = this.errors;
     var classes = formHelper.Classes;
-    var ctx     = this;
+    var ctx = this;
     var $win;
     var winScrollTop;
     var viewportHeight;
@@ -555,11 +672,11 @@ $.extend(FormHelperRequestController.prototype, /** @lends formHelper.FormHelper
       if (errorMessages.length || paramMessages.length || statusMessage.length || erroredFields.length) {
         // UI has been updated
 
-        $win           = $(window);
-        formOffset     = this.$form.offset();
-        winScrollTop   = $win.scrollTop();
+        $win = $(window);
+        formOffset = this.$form.offset();
+        winScrollTop = $win.scrollTop();
         viewportHeight = $win.innerHeight();
-        formHeight     = this.$form.outerHeight();
+        formHeight = this.$form.outerHeight();
 
         // If the form is NOT completely in view
         if (!(formOffset.top > winScrollTop && formOffset.top + formHeight < winScrollTop + viewportHeight)) {
@@ -575,9 +692,8 @@ $.extend(FormHelperRequestController.prototype, /** @lends formHelper.FormHelper
         }
 
         if (scrollTopTarget !== undefined) {
-          $('html, body').animate({scrollTop: scrollTopTarget + 'px'});
+          $('html, body').animate({ scrollTop: scrollTopTarget + 'px' });
         }
-
       }
     }
   },
@@ -589,18 +705,18 @@ $.extend(FormHelperRequestController.prototype, /** @lends formHelper.FormHelper
    *
    * @return {jQuery} All shown error messages
    */
-  getErrorMessages: function() {
-    var Classes    = formHelper.Classes;
+  getErrorMessages: function getErrorMessages() {
+    var Classes = formHelper.Classes;
     var ErrorCodes = formHelper.ErrorCodes;
-    var errors     = this.errors;
-    var selectors  = [];
-    var objects    = $();
+    var errors = this.errors;
+    var selectors = [];
+    var objects = $();
 
     if (errors && errors.length) {
 
       selectors.push('.' + Classes.ERROR_MESSAGE_PREFIX + ErrorCodes.ANY_ERROR);
 
-      $(errors).each(function(index, error) {
+      $(errors).each(function (index, error) {
         if (error.code) {
           selectors.push('.' + Classes.ERROR_MESSAGE_PREFIX + error.code);
         }
@@ -608,7 +724,7 @@ $.extend(FormHelperRequestController.prototype, /** @lends formHelper.FormHelper
     }
 
     if (selectors.length) {
-      objects = objects.add( this.find(selectors.join(',')).addClass(Classes.FH_MARKED_ERROR_MESSAGE).show() );
+      objects = objects.add(this.find(selectors.join(',')).addClass(Classes.FH_MARKED_ERROR_MESSAGE).show());
     }
     return objects;
   },
@@ -619,16 +735,16 @@ $.extend(FormHelperRequestController.prototype, /** @lends formHelper.FormHelper
    *
    * @return {jQuery} All modified param messages
    */
-  getParamMessages: function() {
-    var Classes    = formHelper.Classes;
-    var errors     = this.errors;
-    var selectors  = [];
-    var objects    = $();
+  getParamMessages: function getParamMessages() {
+    var Classes = formHelper.Classes;
+    var errors = this.errors;
+    var selectors = [];
+    var objects = $();
 
     if (errors && errors.length) {
-      $(errors).each(function(index, error) {
+      $(errors).each(function (index, error) {
         if (error.params) {
-          $(error.params).each(function(index, param) {
+          $(error.params).each(function (index, param) {
             selectors.push('.' + Classes.PARAM_MESSAGE_PREFIX + param);
           });
         }
@@ -636,7 +752,7 @@ $.extend(FormHelperRequestController.prototype, /** @lends formHelper.FormHelper
     }
 
     if (selectors.length) {
-      objects = objects.add( this.find(selectors.join(',')).addClass(Classes.FH_MARKED_PARAM_MESSAGE).show() );
+      objects = objects.add(this.find(selectors.join(',')).addClass(Classes.FH_MARKED_PARAM_MESSAGE).show());
     }
     return objects;
   },
@@ -647,7 +763,7 @@ $.extend(FormHelperRequestController.prototype, /** @lends formHelper.FormHelper
    *
    * @return {jQuery} Shown status message
    */
-  getStatusMessage: function() {
+  getStatusMessage: function getStatusMessage() {
     var Classes = formHelper.Classes;
     if (this.status) {
       return this.find('.' + Classes.STATUS_MESSAGE_PREFIX + this.status.toLowerCase()).addClass(Classes.FH_MARKED_STATUS_MESSAGE).show();
@@ -663,17 +779,17 @@ $.extend(FormHelperRequestController.prototype, /** @lends formHelper.FormHelper
    *
    * @return {jQuery} All controls for error params
    */
-  getErroredControls: function() {
-    var Classes   = formHelper.Classes;
-    var errors    = this.errors;
-    var controls  = $();
-    var ctx       = this;
+  getErroredControls: function getErroredControls() {
+    var Classes = formHelper.Classes;
+    var errors = this.errors;
+    var controls = $();
+    var ctx = this;
     var control;
 
     if (errors && errors.length) {
-      $(errors).each(function(index, error) {
+      $(errors).each(function (index, error) {
         if (error.params) {
-          $(error.params).each(function(index, param) {
+          $(error.params).each(function (index, param) {
 
             control = ctx.control(param);
 
@@ -692,13 +808,12 @@ $.extend(FormHelperRequestController.prototype, /** @lends formHelper.FormHelper
         control = controls[0];
 
         // IE8 jank - can't focus an input that was just enabled.
-        window.setTimeout(function() {
+        window.setTimeout(function () {
           control.focus();
           if (control.select) {
             control.select();
           }
         }, 0);
-
       }
     }
 
@@ -710,7 +825,7 @@ $.extend(FormHelperRequestController.prototype, /** @lends formHelper.FormHelper
    * from [FH_MARKED_CONTROL_GROUP]{@link formHelper.Classes.FH_MARKED_CONTROL_GROUP}
    * elements
    */
-  clearAllErroredFields: function() {
+  clearAllErroredFields: function clearAllErroredFields() {
     var Classes = formHelper.Classes;
     this.find('.' + Classes.FH_MARKED_CONTROL_GROUP).removeClass(Classes.CONTROL_GROUP_ERROR + ' ' + Classes.FH_MARKED_CONTROL_GROUP);
   },
@@ -719,7 +834,7 @@ $.extend(FormHelperRequestController.prototype, /** @lends formHelper.FormHelper
    * Hides any elements marked [FH_MARKED_ERROR_MESSAGE]{@link formHelper.Classes.FH_MARKED_ERROR_MESSAGE}
    * and removes marker
    */
-  hideAllErrorMessages: function() {
+  hideAllErrorMessages: function hideAllErrorMessages() {
     var Classes = formHelper.Classes;
     this.find('.' + Classes.FH_MARKED_ERROR_MESSAGE).hide().removeClass(Classes.FH_MARKED_ERROR_MESSAGE);
   },
@@ -728,7 +843,7 @@ $.extend(FormHelperRequestController.prototype, /** @lends formHelper.FormHelper
    * Hides any elements marked [FH_MARKED_PARAM_MESSAGE]{@link formHelper.Classes.FH_MARKED_PARAM_MESSAGE}
    * and removes marker
    */
-  hideAllParamMessages: function() {
+  hideAllParamMessages: function hideAllParamMessages() {
     var Classes = formHelper.Classes;
     this.find('.' + Classes.FH_MARKED_PARAM_MESSAGE).hide().removeClass(Classes.FH_MARKED_PARAM_MESSAGE);
   },
@@ -737,7 +852,7 @@ $.extend(FormHelperRequestController.prototype, /** @lends formHelper.FormHelper
    * Hides any elements marked [FH_MARKED_STATUS_MESSAGE]{@link formHelper.Classes.FH_MARKED_STATUS_MESSAGE}
    * and removes marker
    */
-  hideAllStatusMessages: function() {
+  hideAllStatusMessages: function hideAllStatusMessages() {
     var Classes = formHelper.Classes;
     this.find('.' + Classes.FH_MARKED_STATUS_MESSAGE).hide().removeClass(Classes.FH_MARKED_STATUS_MESSAGE);
   },
@@ -750,7 +865,7 @@ $.extend(FormHelperRequestController.prototype, /** @lends formHelper.FormHelper
    * beef this up by adding disabled classes and registering a handler on form
    * change that simply prevents default until enabled.
    */
-  disableControls: function() {
+  disableControls: function disableControls() {
     if (this.rule.disableControls) {
       this.find('input, select, textarea, button').not(':disabled').attr('disabled', 'disabled').addClass(formHelper.Classes.FH_DISABLED_CONTROL);
     }
@@ -760,7 +875,7 @@ $.extend(FormHelperRequestController.prototype, /** @lends formHelper.FormHelper
    * Removes 'disabled' attribute and [FH_DISABLED_CONTROL]{@link formHelper.Classes.FH_DISABLED_CONTROL}
    * class from all inputs within the form
    */
-  enableControls: function() {
+  enableControls: function enableControls() {
     var Classes = formHelper.Classes;
     if (this.rule.disableControls) {
       this.find('.' + Classes.FH_DISABLED_CONTROL).removeAttr('disabled').removeClass(Classes.FH_DISABLED_CONTROL);
@@ -768,7 +883,6 @@ $.extend(FormHelperRequestController.prototype, /** @lends formHelper.FormHelper
   }
 
 });
-
 
 /**
  * FormHelperRequest instances are created automatically by FormHelper when
@@ -788,7 +902,6 @@ $.extend(FormHelperRequestController.prototype, /** @lends formHelper.FormHelper
  * @memberOf formHelper
  */
 
-
 function FormHelperRequest(formEl, rule, submitEvent) {
   if (!formEl) return;
   this.initialize(formEl, rule, submitEvent);
@@ -796,13 +909,9 @@ function FormHelperRequest(formEl, rule, submitEvent) {
 FormHelperRequest.prototype = FormHelperRequestController.prototype;
 formHelper.FormHelperRequest = FormHelperRequest;
 
+$.extend(formHelper.FormHelperRequest.prototype, /** @lends formHelper.FormHelperRequest.prototype */{
 
-
-
-
-$.extend(formHelper.FormHelperRequest.prototype, /** @lends formHelper.FormHelperRequest.prototype */ {
-
-  initialize: function(formEl, rule, submitEvent) {
+  initialize: function initialize(formEl, rule, submitEvent) {
     /**
      * jQuery-wrapped form element for the request
      * @type {jQuery}
@@ -822,7 +931,7 @@ $.extend(formHelper.FormHelperRequest.prototype, /** @lends formHelper.FormHelpe
      * @type {Event}
      */
     this.submitEvent = submitEvent;
-    this.cancelled   = false;
+    this.cancelled = false;
 
     /**
      * {@link FormHelperResponse} status code. Only available after [xhrSuccess]{@link formHelper.FormHelperRequestController#xhrSuccess}
@@ -841,16 +950,15 @@ $.extend(formHelper.FormHelperRequest.prototype, /** @lends formHelper.FormHelpe
      */
     this.errors = null;
 
-
     // Deep copy so rule.xhrOptions.data will be sent along.
     var xhrOptions = $.extend(true, {}, formHelper.FormHelperRequest.Defaults.xhrOptions, rule.xhrOptions || {}, {
-      context:    this,
-      url:        this.rule.action || this.$form.attr('action'),
-      data:       $.extend({}, rule.data || {}, this.$form.serializeJSON()),
+      context: this,
+      url: this.rule.action || this.$form.attr('action'),
+      data: $.extend({}, rule.data || {}, this.$form.serializeJSON()),
       beforeSend: this.xhrBeforeSend,
-      success:    this.xhrSuccess,
-      complete:   this.xhrComplete,
-      error:      this.xhrError
+      success: this.xhrSuccess,
+      complete: this.xhrComplete,
+      error: this.xhrError
     });
 
     /**
@@ -879,7 +987,7 @@ $.extend(formHelper.FormHelperRequest.prototype, /** @lends formHelper.FormHelpe
      */
     this.xhrOptions = xhrOptions;
 
-    this.invokeStatusHandler(rule.xhrReady,              [xhrOptions]);
+    this.invokeStatusHandler(rule.xhrReady, [xhrOptions]);
     this.invokeStatusHandler(formHelper.always.xhrReady, [xhrOptions]);
 
     if (this.cancelled) return;
@@ -892,7 +1000,7 @@ $.extend(formHelper.FormHelperRequest.prototype, /** @lends formHelper.FormHelpe
    * during a rule's [xhrReady]{@link FormRule.xhrReady} or [xhrBeforeSend]{@link formHelper.FormHelperRequestController#xhrBeforeSend}
    * callbacks to prevent FormHelper UI updates and XHR
    */
-  cancel: function() {
+  cancel: function cancel() {
     this.cancelled = true;
   },
 
@@ -900,7 +1008,7 @@ $.extend(formHelper.FormHelperRequest.prototype, /** @lends formHelper.FormHelpe
    * [Cancels]{@link formHelper.FormHelperRequest#cancel} the request and forwards the browser to the given location
    * @param {String} location - URL/path to go to
    */
-  redirect: function(location) {
+  redirect: function redirect(location) {
     this.cancel();
     window.location.href = location;
   },
@@ -908,15 +1016,15 @@ $.extend(formHelper.FormHelperRequest.prototype, /** @lends formHelper.FormHelpe
   /**
    * Scroll the page so the top of the form is at the top of the window
    */
-  scrollToTopOfForm: function() {
-    $('html, body').animate({scrollTop: this.$form.offset().top + 'px'});
+  scrollToTopOfForm: function scrollToTopOfForm() {
+    $('html, body').animate({ scrollTop: this.$form.offset().top + 'px' });
   },
 
   /**
    * Clear the value of every password input field in the form
    */
-  blankAllPasswordFields: function() {
-    this.find('input[type=password]').each(function(index, input) {
+  blankAllPasswordFields: function blankAllPasswordFields() {
+    this.find('input[type=password]').each(function (index, input) {
       $(input).val('');
     });
   },
@@ -926,7 +1034,7 @@ $.extend(formHelper.FormHelperRequest.prototype, /** @lends formHelper.FormHelpe
    * @param  {String} selector CSS Selector String
    * @return {jQuery}
    */
-  find: function(selector) {
+  find: function find(selector) {
     return this.$form.find(selector);
   },
 
@@ -935,10 +1043,10 @@ $.extend(formHelper.FormHelperRequest.prototype, /** @lends formHelper.FormHelpe
    * @param  {String} control - Control name or id
    * @return {jQuery}
    */
-  control: function(control) {
-    var $el = this.find('[name=' + control + ']');
+  control: function control(_control) {
+    var $el = this.find('[name=' + _control + ']');
     if (!$el.length) {
-      $el = this.find('#' + control);
+      $el = this.find('#' + _control);
     }
     return $el.first();
   },
@@ -949,8 +1057,8 @@ $.extend(formHelper.FormHelperRequest.prototype, /** @lends formHelper.FormHelpe
    * jQuery-wrapped control element
    * @return {jQuery}
    */
-  controlGroup: function(control) {
-    return ((typeof control === 'string') ? this.control(control) : control).closest('.' + formHelper.Classes.CONTROL_GROUP);
+  controlGroup: function controlGroup(control) {
+    return (typeof control === 'string' ? this.control(control) : control).closest('.' + formHelper.Classes.CONTROL_GROUP);
   }
 
 });
@@ -962,13 +1070,13 @@ formHelper.Classes = {
    * label pair
    * @default
    */
-  CONTROL_GROUP :            'form-group',
+  CONTROL_GROUP: 'form-group',
 
   /**
    * Class applied to CONTROL_GROUP in the event of an error
    * @default
    */
-  CONTROL_GROUP_ERROR :      'has-error',
+  CONTROL_GROUP_ERROR: 'has-error',
 
   /**
    * Class prefix denoting a pre-loaded hidden error message
@@ -976,7 +1084,7 @@ formHelper.Classes = {
    * <div class="js-fh-error-bad-password" style="display: none;">Invalid password. Please try again.</div>
    * @default
    */
-  ERROR_MESSAGE_PREFIX :     'js-fh-error-',
+  ERROR_MESSAGE_PREFIX: 'js-fh-error-',
 
   /**
    * Class prefix denoting a pre-loaded hidden message for returned params
@@ -984,7 +1092,7 @@ formHelper.Classes = {
    * <div class="js-fh-param-error-first-name" style="display: none;">First Name</div>
    * @default
    */
-  PARAM_MESSAGE_PREFIX :     'js-fh-param-error-',
+  PARAM_MESSAGE_PREFIX: 'js-fh-param-error-',
 
   /**
    * Class prefix denoting a pre-loaded hidden message for returned status
@@ -993,44 +1101,44 @@ formHelper.Classes = {
    * <div class="js-fh-status-success" style="display: none;">Thank You!</div>
    * @default
    */
-  STATUS_MESSAGE_PREFIX :    'js-fh-status-',
+  STATUS_MESSAGE_PREFIX: 'js-fh-status-',
 
   /**
    * Class applied to [$form]{@link formHelper.FormHelperRequest#$form} while
    * submitting
    * @default
    */
-  FH_FORM_SUBMITTING :       'js-fh-submitting',
+  FH_FORM_SUBMITTING: 'js-fh-submitting',
 
   /**
    * Class applied to made-visible error messages
    * @default
    */
-  FH_MARKED_ERROR_MESSAGE :  'js-fh-marked-error-msg',
+  FH_MARKED_ERROR_MESSAGE: 'js-fh-marked-error-msg',
 
   /**
    * Class applied to made-visible param error messages
    * @default
    */
-  FH_MARKED_PARAM_MESSAGE :  'js-fh-marked-param-msg',
+  FH_MARKED_PARAM_MESSAGE: 'js-fh-marked-param-msg',
 
   /**
    * Class applied to made-visible status messages
    * @default
    */
-  FH_MARKED_STATUS_MESSAGE : 'js-fh-marked-status-msg',
+  FH_MARKED_STATUS_MESSAGE: 'js-fh-marked-status-msg',
 
   /**
    * Class applied to error-marked control groups
    * @default
    */
-  FH_MARKED_CONTROL_GROUP :  'js-fh-marked-control-group',
+  FH_MARKED_CONTROL_GROUP: 'js-fh-marked-control-group',
 
   /**
    * Class applied to made-disabled control groups while submitting
    * @default
    */
-  FH_DISABLED_CONTROL :      'js-fh-disabled-control'
+  FH_DISABLED_CONTROL: 'js-fh-disabled-control'
 };
 
 /** @namespace  */
@@ -1042,7 +1150,7 @@ formHelper.ErrorCodes = {
    * <div class="js-fh-error-any-error" style="display: none;">Oops, something went wrong!</div>
    * @default
    */
-  ANY_ERROR : 'any-error'
+  ANY_ERROR: 'any-error'
 };
 
 /**
@@ -1079,13 +1187,13 @@ formHelper.ErrorCodes = {
 * @property {Object.<String, FormRule.StatusHandler>} [status]
 */
 formHelper.always = {
-  xhrReady:      null,
+  xhrReady: null,
   xhrBeforeSend: null,
-  xhrSuccess:    null,
-  xhrError:      null,
-  xhrComplete:   null,
-  onComplete:    null,
-  status:        {}
+  xhrSuccess: null,
+  xhrError: null,
+  xhrComplete: null,
+  onComplete: null,
+  status: {}
 };
 
 /**
@@ -1117,13 +1225,15 @@ formHelper.FormHelperRequest.Defaults = {
   */
   xhrOptions: {
     /** @default */
-    cache:    false,
+    cache: false,
     /** @default */
     dataType: 'json',
     /** @default */
-    type:     'POST'
+    type: 'POST'
   }
 };
 
+return formHelper;
 
-export default formHelper;
+})));
+//# sourceMappingURL=formhelper.js.map
