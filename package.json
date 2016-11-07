@@ -1,6 +1,6 @@
 {
   "name": "formhelper",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "description": "Register forms for ajax submission. Auto display messages, highlight inputs, and fire callbacks based on the response.",
   "main": "dist/formhelper.js",
   "module": "dist/formhelper.mjs",

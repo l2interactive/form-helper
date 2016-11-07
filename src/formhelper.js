@@ -291,7 +291,7 @@
 * @namespace formHelper
 */
 
-import 'jquery';
+import jQuery from 'jquery';
 import 'jquery-serializejson';
 
 const $ = jQuery;
