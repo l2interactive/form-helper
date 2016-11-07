@@ -25,6 +25,7 @@ export default {
       dest: pkg['main'],
       format: 'umd',
       moduleName: 'formHelper',
+      moduleId: 'formhelper',
       sourceMap: true,
       globals
     },

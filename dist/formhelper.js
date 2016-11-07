@@ -1,6 +1,6 @@
 (function (global, factory) {
   typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory(require('jquery'), require('jquery-serializejson')) :
-  typeof define === 'function' && define.amd ? define(['jquery', 'jquery-serializejson'], factory) :
+  typeof define === 'function' && define.amd ? define('formhelper', ['jquery', 'jquery-serializejson'], factory) :
   (global.formHelper = factory(global.jQuery,global.serializeJSON));
 }(this, (function (jQuery,jquerySerializejson) { 'use strict';
 
